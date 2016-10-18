@@ -20,14 +20,16 @@ class HttpService:
 
 
 baseUrl = 'https://jsonplaceholder.typicode.com/'
-print "Sending request..."
-AllUsers = HttpService(baseUrl).getUsers()
-FirstUser = HttpService(baseUrl).getUsers(1)
+prompt = raw_input("Enter 1 to Retreive all User. 2 to get specific User => ")
 
-
-#result = requests.get(baseUrl + 'users').json()
-
-print AllUsers
-print "\n\n\n"
-print FirstUser
-
+if prompt == '1':
+    AllUsers = HttpService(baseUrl).getUsers()
+    print len(AllUsers), "Users found"
+    for User in AllUsers:
+        print User["id"], User["name"], User["phone"]
+elif prompt == '2':
+    Uid = raw_input("Enter UserId. Range is between 1 - 10 => ")
+    User = HttpService(baseUrl).getUsers(Uid)
+    print User["id"], User["name"], User["phone"]
+else:
+    print "Invalid Input"
